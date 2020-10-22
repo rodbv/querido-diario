@@ -9,6 +9,4 @@ python-dateutil
 python-decouple
 requests
 scrapy
-schematics
 SQLAlchemy
-spidermon

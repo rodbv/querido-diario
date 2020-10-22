@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 from scrapy import Request
 
@@ -39,6 +40,8 @@ class SpPresidentePrudenteSpider(BaseGazetteSpider):
             date=doc_date,
             file_urls=(doc_url,),
             is_extra_edition=False,
+            territory_id=self.TERRITORY_ID,
+            scraped_at=datetime.utcnow(),
             power="executive",
         )
 

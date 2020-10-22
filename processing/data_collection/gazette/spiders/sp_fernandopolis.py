@@ -1,5 +1,8 @@
-import scrapy
+from datetime import datetime
+
 from dateparser import parse
+import scrapy
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -23,5 +26,7 @@ class SpFernandopolis(BaseGazetteSpider):
                 date=date,
                 file_urls=[link],
                 is_extra_edition=is_extra_edition,
+                municipality_id=self.TERRITORY_ID,
                 power="executive",
+                scraped_at=datetime.utcnow(),
             )

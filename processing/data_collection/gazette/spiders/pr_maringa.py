@@ -1,5 +1,5 @@
 from dateparser import parse
-from datetime import date
+from datetime import date, datetime
 import re
 
 import scrapy
@@ -41,5 +41,7 @@ class PrMaringaSpider(BaseGazetteSpider):
                     f"http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/arquivos/oom%20{gazette_id}.pdf"
                 ],
                 is_extra_edition=any(caracter.isalpha() for caracter in gazette_id),
+                territory_id=self.TERRITORY_ID,
                 power="executive_legislature",
+                scraped_at=datetime.utcnow(),
             )

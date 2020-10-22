@@ -50,7 +50,9 @@ class MgUberaba(BaseGazetteSpider):
                 date=date,
                 file_urls=[self.mount_url(filename, date.year)],
                 is_extra_edition=False,
+                territory_id=self.TERRITORY_ID,
                 power="executive_legislature",
+                scraped_at=dt.datetime.utcnow(),
             )
 
     def extract_date(self, filename):

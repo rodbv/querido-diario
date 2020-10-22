@@ -1,4 +1,5 @@
 from dateparser import parse
+import datetime as dt
 
 import scrapy
 
@@ -18,7 +19,12 @@ class EsAssociacaoMunicipiosSpider(BaseGazetteSpider):
             date = gazette_node.css("td::text")[1].extract()
             date = parse(date, languages=["pt"]).date()
             yield Gazette(
-                date=date, file_urls=[url], is_extra_edition=False, power="executive",
+                date=date,
+                file_urls=[url],
+                is_extra_edition=False,
+                territory_id=self.TERRITORY_ID,
+                power="executive",
+                scraped_at=dt.datetime.utcnow(),
             )
 
         css_path = ".pagination .next:not(.disabled) a::attr(href)"

@@ -14,9 +14,7 @@ Table of Contents
      * [Run Gazette Crawler](#run-gazette-crawler)
   * [Tips and tricks](#tips-and-tricks)
   * [Troubleshooting](#troubleshooting)
-     * [Non-specific errors when building or running](#non-specific-errors-when-building-or-running)
-     * [ImportError: cannot import name 'main'](#importerror-cannot-import-name-main)
-     * ["Permission denied" error when gazette files are downloaded](#permission-denied-error-when-gazette-files-are-downloaded)
+     * ["Permission denied" error when files are downloaded](#permission-denied-error-when-files-are-downloaded)
   * [Contributing](#contributing)
   * [Acknowledgments](#acknowledgments)
 
@@ -24,7 +22,7 @@ Table of Contents
 
 If you want to understand how Diário Oficial works, you'll want to get the source, build it, and run it locally.
 
-The only prerequisites are [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/overview/), which are the tools responsible for installing all the other dependencies. If you're a Windows 7+ user, please check our setup guide in [windows_users.md](windows_users.md).
+The only prerequisites are [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/overview/), which are the tools responsible for installing all the other dependencies.
 
 After you cloned the repository, you may want to run the following from the source folder:
 
@@ -32,9 +30,6 @@ After you cloned the repository, you may want to run the following from the sour
 $ make setup
 $ docker-compose up
 ```
-
-If you get some error here, see the section [Troubleshooting](#troubleshooting)
-below.
 
 ### Run Gazette Crawler
 
@@ -79,29 +74,7 @@ SPIDER=sc_florianopolis make run_spider
 
 ## Troubleshooting
 
-### Non-specific errors when building or running
-Several error is because your user is not in the docker group. To resolve this,
-execute the follow command and do logout and login:
-
-```console
-$ sudo usermod -aG docker $USER
-```
-
-### ImportError: cannot import name 'main'
-
-A error like this can occour when you run `pip3 install -r requirements.txt`,
-which is a step from build (`make setup`). This means you must have
-inadvertently upgraded your system pip (probably through something like
-`sudo pip install pip --upgrade`)
-
-To recover the pip3 binary you'll need to run (on Debian-based systems. On
-non-Debian system, replace `apt` by the specific package manager):
-
-```console
-$ sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
-```
-
-### "Permission denied" error when gazette files are downloaded
+### "Permission denied" error when files are downloaded
 
 This problem most probably occurs due to a mismatch between your system's user id and the container's user id and there is a volume in place connecting both file systems (that's the default case here).
 
@@ -114,7 +87,6 @@ $ id -u
 Copy the output, replace the value of the environment variable `LOCAL_USER_ID` in the generated `.env` file with the copied value and execute `docker-compose build`. With the image rebuilt you are ready to go.
 
 To save yourself this effort in the future, you can replace the value of `LOCAL_USER_ID` in `.env.example` too and `.env` will already be generated with the correct value for it when `make setup` is executed.
-
 
 ## Contributing
 

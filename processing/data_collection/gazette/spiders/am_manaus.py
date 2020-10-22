@@ -1,5 +1,6 @@
 import dateparser
 
+from datetime import datetime
 from scrapy import Request
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -65,5 +66,10 @@ class AmManausSpider(BaseGazetteSpider):
 
     def build_gazzete(self, date, url, power, is_extra_edition=False):
         return Gazette(
-            date=date, file_urls=[url], is_extra_edition=is_extra_edition, power=power,
+            date=date,
+            file_urls=[url],
+            is_extra_edition=is_extra_edition,
+            territory_id=self.TERRITORY_ID,
+            power=power,
+            scraped_at=datetime.utcnow(),
         )

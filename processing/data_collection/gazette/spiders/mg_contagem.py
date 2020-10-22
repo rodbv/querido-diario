@@ -1,3 +1,5 @@
+import datetime as dt
+
 import dateparser
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -13,7 +15,7 @@ class MgContagemSpider(BaseGazetteSpider):
         """
         @url http://www.contagem.mg.gov.br/?se=doc&pagina=2
         @returns items 15 15
-        @scrapes date file_urls is_extra_edition power
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
         anchor_elements = response.css(".texto11pt a")
 
@@ -36,7 +38,9 @@ class MgContagemSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra_edition,
+                territory_id=self.TERRITORY_ID,
                 power="executive_legislature",
+                scraped_at=dt.datetime.utcnow(),
             )
 
         number_of_pages = int(

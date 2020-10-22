@@ -1,4 +1,5 @@
 from dateparser import parse
+import datetime as dt
 import scrapy
 from scrapy.http import Request
 
@@ -28,7 +29,9 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
             gazette = Gazette(
                 date=parse(date, languages=["pt"]).date(),
                 is_extra_edition=False,
+                territory_id=self.TERRITORY_ID,
                 power=power,
+                scraped_at=dt.datetime.utcnow(),
             )
 
             gazette_details_page = f"abrir.asp?edi={edition}&p={power_id}"
